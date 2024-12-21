@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <link rel="icon" href="../public/icon.png"> <!-- TODO: FIX THE LOGO -->
+    <link rel="icon" href="../public/icon.png">
     <title>Introduction to Proxmox</title>
 </head>
 <body>
@@ -13,7 +13,7 @@
         <h2 id="navbar-title">Proxmox Information</h2>
         <ul id="navbar-list">
             <li>
-                <button>Overview</button>
+                <button><a href="#overview" target="_self">Overview</a></button>
             </li>
             <li>
                 <button>Background Knowledge</button>
@@ -25,13 +25,10 @@
                 <button>How to install</button>
             </li>
             <li>
-                <button>Creating a VM</button>
-            </li>
-            <li>
                 <button>Tips and Tricks</button>
             </li>
             <li>
-                <button>References</button>
+                <button>Resources</button>
             </li>
         </ul>
     </div>
@@ -125,7 +122,93 @@
                 for high availability, ensure time synchronization using NTP and low-latency network connections to
                 facilitate Corosync communication between nodes.
                 <br><br>
-                Storage flexibility is one of Proxmox's strengths. Local storage works well for small setups, but ZFS is a better choice for features like snapshots and replication. Ceph is another option for distributed, scalable storage in multi-node environments. For networking, VLAN tagging and SDN provide the flexibility needed for complex setups, such as multi-tenant environments. Finally, Proxmox supports multiple backup modes, including snapshot-based backups (ideal with ZFS) and integration with the Proxmox Backup Server for efficient deduplication and compression.</p>
+                Storage flexibility is one of Proxmox's strengths. Local storage works well for small setups, but ZFS
+                is a better choice for features like snapshots and replication. Ceph is another option for distributed,
+                scalable storage in multi-node environments. For networking, VLAN tagging and SDN provide the
+                flexibility needed for complex setups, such as multi-tenant environments. Finally, Proxmox supports
+                multiple backup modes, including snapshot-based backups (ideal with ZFS) and integration with the
+                Proxmox Backup Server for efficient deduplication and compression.</p>
+        </div>
+        <div id="installation ">
+            <h1>Installation</h1>
+            <h2>Initial Installation</h2>
+            <p>To install Proxmox, download the ISO from the
+                <a target="_blank" href="https://www.proxmox.com/en/">Proxmox website</a>, create a bootable USB drive
+                using a tool like Rufus or Balena Etcher, and boot your server from the USB. Follow the
+                guided installation steps, specifying the disk for installation, network settings, and the root
+                password.</p>
+
+            <h2>Creating Virtual Machines</h2>
+            <p>To create a virtual machine, navigate to Datacenter > Node > Create VM in the web interface.
+                Provide a name for the VM, select the ISO for the operating system, and configure CPU, memory,
+                and storage settings. Complete the wizard and start the VM.</p>
+
+            <h2>Creating Containers</h2>
+            <p>Creating a container involves navigating to Datacenter > Node > Create CT,
+                selecting a template (which can be downloaded via the interface), and configuring CPU,
+                memory, and network settings. Containers can be managed via the web interface or command line,
+                offering lightweight virtualization for specific workloads.</p>
+
+            <h2>Setting up High Availability (HA)</h2>
+            <p>High availability in Proxmox requires a cluster of nodes. Start by creating a cluster on the
+                primary node: <br><br><code class="code-block">pvecm create &ltcluster-name&gt</code></p>
+            <p>Then, add additional nodes to the cluster:
+                <br><br><code class="code-block">pvecm add &ltprimary-node-ip&gt</code> </p>
+            <p>Once the cluster is set up, enable HA for specific VMs or containers via the web interface.</p>
+
+            <h2>Configuring ZFS Storage</h2>
+            <p>ZFS can be set up during installation or added later. To create a ZFS pool, use the following command:
+            <br><br><code class="code-block">zpool create mypool /dev/sdX</code></p>
+            <p>Add the ZFS pool in the Proxmox GUI under Datacenter > Storage > Add ZFS.
+                Snapshots can be created using: <br><br><code class="code-block">zfs snapshot
+                    mypool/dataset@snapshot-name</code></p>
+
+            <h2>Networking</h2>
+            <p>Proxmox uses Linux bridges to connect VMs to external networks. You can configure these under
+                System > Network in the web interface. To add a VLAN, use the following command:
+                <br><br><code class="code-block">ip link add link eth0 name eth0.10 type vlan id 10</code></p>
+            <p>This allows for isolated network configurations and enhanced network management.</p>
+
+            <h2>Backup and Restore</h2>
+            <p>Backups can be scheduled under Datacenter > Backup. Select the desired backup mode
+                (snapshot, stop, or suspend) and configure the schedule. Restoring a VM is as simple as navigating
+                to the backup file and selecting Restore.</p>
+
+            <h2>Ceph Cluster Storage</h2>
+            <p>For distributed storage, Ceph can be installed on Proxmox nodes: <br><br><code class="code-block">
+                apt install ceph
+            </code></p>
+            <p>Create a Ceph cluster via the web interface or CLI and add Ceph storage pools to Proxmox for use by
+                VMs and containers.</p>
+
+            <h2>Monitoring and Logs</h2>
+            <p>Proxmox includes built-in monitoring tools for tracking CPU, memory, disk I/O, and network traffic.
+                Logs can be accessed for troubleshooting under Datacenter > Syslog in the GUI.</p>
+
+            <h2>Cluster and Node Management</h2>
+            <p>To add nodes to a cluster, run the following command on the secondary node: <br><br><code
+                    class="code-block">pvecm add &ltIP of master node&gt</code></p>
+            <p>Live VM migrations can be performed through the GUI by selecting the VM and clicking Migrate.</p>
+        </div>
+        <div id="tips">
+            <h1>Some Tips...</h1>
+            <p>To get the most out of Proxmox, set up a robust backup strategy using the Proxmox Backup Server or
+                third-party tools. Experiment in a lab environment to test configurations before deploying them in
+                production. Secure your Proxmox system with regular updates, strong passwords, and firewalls. Finally,
+                leverage the Proxmox forums and documentation for troubleshooting and learning. By following these steps
+                and guidelines, you'll be well-equipped to deploy and manage a Proxmox system effectively.</p>
+        </div>
+        <div id="resources">
+            <h1>Helpful Resources</h1>
+            <p>Here are some resources that are particularly useful for beginners:</p>
+            <ul>
+                <li><a href="https://www.reddit.com/r/Proxmox/">The Proxmox Subreddit</a></li>
+                <li><a href="https://pve.proxmox.com/pve-docs/">Official documentation</a></li>
+                <li><a href="https://www.youtube.com/watch?v=5j0Zb6x_hOk&list=PLT98CRl2KxKHnlbYhtABg6cF50bYa8Ulo">
+                    A full YouTube course</a></li>
+                <li><a href="https://support.us.ovhcloud.com/hc/en-us/articles/360010916620-How-to-
+                Create-a-VM-in-Proxmox-VE">Guide to create a VM</a></li>
+            </ul>
         </div>
     </div>
 </main>

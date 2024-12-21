@@ -53,8 +53,12 @@
     border-bottom: none;
 }
 
-#navbar button:hover {
+#navbar button:hover{
     background-color: #00617F;
+}
+
+#navbar a {
+    background-color: #e57000;
 }
 
 .border {
@@ -73,3 +77,7 @@
     font-family: "Times New Roman", Arial, sans-serif;
 }
 
+.code-block {
+    background-color: #414A4C;
+    padding: 5px;
+}
