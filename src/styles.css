@@ -1,5 +1,7 @@
 * {
     box-sizing: border-box;
+    background-color: #000;
+    color: white;
 }
 
 #navbar {
@@ -52,11 +54,11 @@
 }
 
 #navbar button:hover {
-    background-color: #4287f5;
+    background-color: #00617F;
 }
 
 .border {
-    background: black;
+    background: white;
     width: 2px;
     height: 100%;
     position: fixed;
