@@ -41,7 +41,58 @@
            </ol>
        </div>
         <div id="bg-knowledge">
+            <h1>Background Knowledge</h1>
             <p>Here is some technical background you should know:</p>
+            <ol>
+                <li>
+                    <h3>Basic Linux Knowledge</h3>
+                    <ul>
+                        <li>Familiarity with Linux command-line operations, as Proxmox is based on Debian.</li>
+                        <li>Common commands for managing files, users, and packages (<code>ls, cd, apt install
+                        </code>, etc).</li>
+                        <li>Understanding permissions (<code>chmod, chown</code>, and SSH Configurations)</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>Networking Basics</h3>
+                    <ul>
+                        <li>IP Addressing: Understand static vs. dynamic IPs, subnetting, and gateways.</li>
+                        <li>DHCP: Know how Proxmox might obtain or require a static IP during setup.</li>
+                        <li>DNS: Properly configure hostname and DNS for network functionality.</li>
+                        <li>Bridges and VLANs: Proxmox relies on bridges for VM networking. Understand how bridges
+                            emulate a switch to connect VMs to the physical network.</li>
+                        <li>Basic firewall rules and NAT if needed for external access.</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>Virtualization Concepts</h3>
+                    <ul>
+                        <li>Difference between virtual machines (VMs) and containers (CTs).</li>
+                        <li>Hypervisor basics (KVM in this case).</li>
+                        <li>Resource allocation: CPU cores, memory, storage, and how they affect performance.</li>
+                        <li>Nested virtualization: If you're testing Proxmox on another hypervisor, ensure nested
+                            virtualization is supported.</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>Storage Formatting/RAID</h3>
+                    <ul>
+                        <li>File Systems: Know about ext4, ZFS, and LVM. ZFS is particularly important if you plan
+                            to use its snapshot and replication features.</li>
+                        <li>RAID: Understanding RAID levels (RAID 0, 1, 5, 10) if using multiple drives.</li>
+                        <li>Disk Partitioning: Basic understanding of partitions, swap space, and mounting.</li>
+                        <li>Network-Attached Storage (NAS): Concepts like NFS, iSCSI, and CIFS/SMB for shared storage.</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>Backup & Recovery</h3>
+                    <ul>
+                        <li>Importance of backup strategies for VMs and configurations.</li>
+                        <li>Knowledge of snapshot-based backup vs. full backups.</li>
+                        <li>Restoring systems from Proxmox backups.</li>
+                    </ul>
+                </li>
+            </ol>
         </div>
     </div>
 </main>
