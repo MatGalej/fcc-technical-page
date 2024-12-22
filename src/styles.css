@@ -99,8 +99,14 @@
     padding: 5px;
 }
 
-@media max(768px) {
+@media screen and (max-width: 768px) {
     #navbar {
         display: none;
+    }
+    .border {
+        display: none;
+    }
+    #page-content {
+        margin-left: 0;
     }
 }
