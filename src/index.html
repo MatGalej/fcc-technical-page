@@ -16,26 +16,26 @@
                 <button><a href="#overview" target="_self">Overview</a></button>
             </li>
             <li>
-                <button>Background Knowledge</button>
+                <button><a href="#bg-knowledge" target="_self">Background Knowledge</a></button>
             </li>
             <li>
-                <button>System Requirements</button>
+                <button><a href="#system-reqs" target="_self">System Requirements</a></button>
             </li>
             <li>
-                <button>How to install</button>
+                <button><a href="#installation" target="_self">How to install</a></button>
             </li>
             <li>
-                <button>Tips and Tricks</button>
+                <button><a href="#tips" target="_self">Tips and Tricks</a></button>
             </li>
             <li>
-                <button>Resources</button>
+                <button><a href="#resources" target="_self">Resources</a></button>
             </li>
         </ul>
     </div>
     <div class="border"></div>
     <div id="page-content">
         <div id="overview">
-            <h1>Overview</h1>
+            <h1 id="first-header">Overview</h1>
             <p>Proxmox is an open-source virtualization platform that combines KVM (Kernel-based Virtual Machine) for
                 virtual machines (VMs) and LXC (Linux Containers) for lightweight containers. It offers a powerful
                 web-based interface for managing virtualized environments, including clustering, backup solutions,
@@ -43,7 +43,7 @@
             <p>Key features of Proxmox include:</p>
             <ol>
                 <li>Virtualization: Supports both VMs and containers for different workload needs.</li>
-                <li>High Availability (HA): Allows clustering of multiple nodes for failover capabilities.</li>
+                <li>High Availability (HA): Allows clustering of multiple nodes for fail over capabilities.</li>
                 <li>Backup and Restore: Built-in support for backup and snapshot management.</li>
                 <li>Storage Flexibility: Integrates with local storage, ZFS, Ceph, and more.</li>
                 <li>Networking: Advanced networking features such as VLAN tagging, bridges, and SDN.</li>
@@ -129,7 +129,7 @@
                 multiple backup modes, including snapshot-based backups (ideal with ZFS) and integration with the
                 Proxmox Backup Server for efficient deduplication and compression.</p>
         </div>
-        <div id="installation ">
+        <div id="installation">
             <h1>Installation</h1>
             <h2>Initial Installation</h2>
             <p>To install Proxmox, download the ISO from the
