@@ -9,208 +9,231 @@
 </head>
 <body>
 <main id="main-doc">
-    <div id="navbar">
-        <h2 id="navbar-title">Proxmox Information</h2>
-        <ul id="navbar-list">
-            <li>
-                <button><a href="#overview" target="_self">Overview</a></button>
-            </li>
-            <li>
-                <button><a href="#bg-knowledge" target="_self">Background Knowledge</a></button>
-            </li>
-            <li>
-                <button><a href="#system-reqs" target="_self">System Requirements</a></button>
-            </li>
-            <li>
-                <button><a href="#installation" target="_self">How to install</a></button>
-            </li>
-            <li>
-                <button><a href="#tips" target="_self">Tips and Tricks</a></button>
-            </li>
-            <li>
-                <button><a href="#resources" target="_self">Resources</a></button>
-            </li>
-        </ul>
+    <div id="page-content">
+        <div>
+            <section class="main-section" id="Overview">
+                <header><h1 id="first-header">Overview</h1></header>
+                <p>Proxmox is an open-source virtualization platform that combines KVM (Kernel-based Virtual Machine)
+                    for
+                    virtual machines (VMs) and LXC (Linux Containers) for lightweight containers. It offers a powerful
+                    web-based interface for managing virtualized environments, including clustering, backup solutions,
+                    and software-defined storage.</p>
+                <p>Key features of Proxmox include:</p>
+                <ol>
+                    <li>Virtualization: Supports both VMs and containers for different workload needs.</li>
+                    <li>High Availability (HA): Allows clustering of multiple nodes for fail over capabilities.</li>
+                    <li>Backup and Restore: Built-in support for backup and snapshot management.</li>
+                    <li>Storage Flexibility: Integrates with local storage, ZFS, Ceph, and more.</li>
+                    <li>Networking: Advanced networking features such as VLAN tagging, bridges, and SDN.</li>
+                    <li>Web-Based Management: Full control through an intuitive GUI.</li>
+                    <li>Open-Source Foundation: Community-driven with optional enterprise support.</li>
+                </ol>
+            </section>
+        </div>
+        <div>
+            <section class="main-section" id="Background_Knowledge">
+                <header><h1>Background Knowledge</h1></header>
+                <p>Here is some technical background you should know:</p>
+                <ol>
+                    <li>
+                        <h3>Basic Linux Knowledge</h3>
+                        <ul>
+                            <li>Familiarity with Linux command-line operations, as Proxmox is based on Debian.</li>
+                            <li>Common commands for managing files, users, and packages (<code>ls, cd, apt install
+                            </code>, etc).
+                            </li>
+                            <li>Understanding permissions (<code>chmod, chown</code>, and SSH Configurations)</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <h3>Networking Basics</h3>
+                        <ul>
+                            <li>IP Addressing: Understand static vs. dynamic IPs, subnetting, and gateways.</li>
+                            <li>DHCP: Know how Proxmox might obtain or require a static IP during setup.</li>
+                            <li>DNS: Properly configure hostname and DNS for network functionality.</li>
+                            <li>Bridges and VLANs: Proxmox relies on bridges for VM networking. Understand how bridges
+                                emulate a switch to connect VMs to the physical network.
+                            </li>
+                            <li>Basic firewall rules and NAT if needed for external access.</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <h3>Virtualization Concepts</h3>
+                        <ul>
+                            <li>Difference between virtual machines (VMs) and containers (CTs).</li>
+                            <li>Hypervisor basics (KVM in this case).</li>
+                            <li>Resource allocation: CPU cores, memory, storage, and how they affect performance.</li>
+                            <li>Nested virtualization: If you're testing Proxmox on another hypervisor, ensure nested
+                                virtualization is supported.
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <h3>Storage Formatting/RAID</h3>
+                        <ul>
+                            <li>File Systems: Know about ext4, ZFS, and LVM. ZFS is particularly important if you plan
+                                to use its snapshot and replication features.
+                            </li>
+                            <li>RAID: Understanding RAID levels (RAID 0, 1, 5, 10) if using multiple drives.</li>
+                            <li>Disk Partitioning: Basic understanding of partitions, swap space, and mounting.</li>
+                            <li>Network-Attached Storage (NAS): Concepts like NFS, iSCSI, and CIFS/SMB for
+                                shared storage.
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <h3>Backup & Recovery</h3>
+                        <ul>
+                            <li>Importance of backup strategies for VMs and configurations.</li>
+                            <li>Knowledge of snapshot-based backup vs. full backups.</li>
+                            <li>Restoring systems from Proxmox backups.</li>
+                        </ul>
+                    </li>
+                </ol>
+            </section>
+        </div>
+        <div>
+            <section class="main-section" id="System_Requirements">
+                <header><h1>System Requirements</h1></header>
+                <p>Before setting up Proxmox, it's important to have a solid understanding of the platform and its
+                    requirements. Proxmox requires a 64-bit processor with virtualization support (Intel VT-x or AMD-V)
+                    and at least 4 GB of RAM, though 16 GB or more is recommended for production environments. For
+                    storage,
+                    using SSDs enhances performance, and configurations like ZFS require additional RAM (1 GB per 1 TB
+                    of
+                    storage is suggested). Networking basics, such as IP addressing, VLANs, and bridges, are also
+                    essential,
+                    as Proxmox uses Linux bridges to connect virtual machines to physical networks. When clustering
+                    nodes
+                    for high availability, ensure time synchronization using NTP and low-latency network connections to
+                    facilitate Corosync communication between nodes.
+                    <br><br>
+                    Storage flexibility is one of Proxmox's strengths. Local storage works well for small setups, but
+                    ZFS
+                    is a better choice for features like snapshots and replication. Ceph is another option for
+                    distributed,
+                    scalable storage in multi-node environments. For networking, VLAN tagging and SDN provide the
+                    flexibility needed for complex setups, such as multi-tenant environments. Finally, Proxmox supports
+                    multiple backup modes, including snapshot-based backups (ideal with ZFS) and integration with the
+                    Proxmox Backup Server for efficient deduplication and compression.</p>
+            </section>
+        </div>
+        <div>
+            <section class="main-section" id="Installation">
+                <header><h1>Installation</h1></header>
+                <h2>Initial Installation</h2>
+                <p>To install Proxmox, download the ISO from the
+                    <a target="_blank" href="https://www.proxmox.com/en/">Proxmox website</a>, create a bootable USB
+                    drive
+                    using a tool like Rufus or Balena Etcher, and boot your server from the USB. Follow the
+                    guided installation steps, specifying the disk for installation, network settings, and the root
+                    password.</p>
+
+                <h2>Creating Virtual Machines</h2>
+                <p>To create a virtual machine, navigate to Datacenter > Node > Create VM in the web interface.
+                    Provide a name for the VM, select the ISO for the operating system, and configure CPU, memory,
+                    and storage settings. Complete the wizard and start the VM.</p>
+
+                <h2>Creating Containers</h2>
+                <p>Creating a container involves navigating to Datacenter > Node > Create CT,
+                    selecting a template (which can be downloaded via the interface), and configuring CPU,
+                    memory, and network settings. Containers can be managed via the web interface or command line,
+                    offering lightweight virtualization for specific workloads.</p>
+
+                <h2>Setting up High Availability (HA)</h2>
+                <p>High availability in Proxmox requires a cluster of nodes. Start by creating a cluster on the
+                    primary node: <br><br><code class="code-block">pvecm create &ltcluster-name&gt</code></p>
+                <p>Then, add additional nodes to the cluster:
+                    <br><br><code class="code-block">pvecm add &ltprimary-node-ip&gt</code></p>
+                <p>Once the cluster is set up, enable HA for specific VMs or containers via the web interface.</p>
+
+                <h2>Configuring ZFS Storage</h2>
+                <p>ZFS can be set up during installation or added later. To create a ZFS pool, use the following
+                    command:
+                    <br><br><code class="code-block">zpool create mypool /dev/sdX</code></p>
+                <p>Add the ZFS pool in the Proxmox GUI under Datacenter > Storage > Add ZFS.
+                    Snapshots can be created using: <br><br><code class="code-block">zfs snapshot
+                        mypool/dataset@snapshot-name</code></p>
+
+                <h2>Networking</h2>
+                <p>Proxmox uses Linux bridges to connect VMs to external networks. You can configure these under
+                    System > Network in the web interface. To add a VLAN, use the following command:
+                    <br><br><code class="code-block">ip link add link eth0 name eth0.10 type vlan id 10</code></p>
+                <p>This allows for isolated network configurations and enhanced network management.</p>
+
+                <h2>Backup and Restore</h2>
+                <p>Backups can be scheduled under Datacenter > Backup. Select the desired backup mode
+                    (snapshot, stop, or suspend) and configure the schedule. Restoring a VM is as simple as navigating
+                    to the backup file and selecting Restore.</p>
+
+                <h2>Ceph Cluster Storage</h2>
+                <p>For distributed storage, Ceph can be installed on Proxmox nodes: <br><br><code class="code-block">
+                    apt install ceph
+                </code></p>
+                <p>Create a Ceph cluster via the web interface or CLI and add Ceph storage pools to Proxmox for use by
+                    VMs and containers.</p>
+
+                <h2>Monitoring and Logs</h2>
+                <p>Proxmox includes built-in monitoring tools for tracking CPU, memory, disk I/O, and network traffic.
+                    Logs can be accessed for troubleshooting under Datacenter > Syslog in the GUI.</p>
+
+                <h2>Cluster and Node Management</h2>
+                <p>To add nodes to a cluster, run the following command on the secondary node: <br><br><code
+                        class="code-block">pvecm add &ltIP of master node&gt</code></p>
+                <p>Live VM migrations can be performed through the GUI by selecting the VM and clicking Migrate.</p>
+            </section>
+        </div>
+        <div>
+            <section class="main-section" id="Tips">
+                <header><h1>Tips</h1></header>
+                <p>To get the most out of Proxmox, set up a robust backup strategy using the Proxmox Backup Server or
+                    third-party tools. Experiment in a lab environment to test configurations before deploying them in
+                    production. Secure your Proxmox system with regular updates, strong passwords, and firewalls.
+                    Finally,
+                    leverage the Proxmox forums and documentation for troubleshooting and learning. By following these
+                    steps
+                    and guidelines, you'll be well-equipped to deploy and manage a Proxmox system effectively.</p>
+            </section>
+        </div>
+        <div>
+            <section class="main-section" id="Helpful_Resources">
+                <header><h1>Helpful Resources</h1></header>
+                <p>Here are some resources that are particularly useful for beginners:</p>
+                <ul>
+                    <li><a href="https://www.reddit.com/r/Proxmox/">The Proxmox Subreddit</a></li>
+                    <li><a href="https://pve.proxmox.com/pve-docs/">Official documentation</a></li>
+                    <li><a href="https://www.youtube.com/watch?v=5j0Zb6x_hOk&list=PLT98CRl2KxKHnlbYhtABg6cF50bYa8Ulo">
+                        A full YouTube course</a></li>
+                    <li><a href="https://support.us.ovhcloud.com/hc/en-us/articles/360010916620-How-to-
+                Create-a-VM-in-Proxmox-VE">Guide to create a VM</a></li>
+                </ul>
+            </section>
+        </div>
     </div>
     <div class="border"></div>
-    <div id="page-content">
-        <div id="overview">
-            <h1 id="first-header">Overview</h1>
-            <p>Proxmox is an open-source virtualization platform that combines KVM (Kernel-based Virtual Machine) for
-                virtual machines (VMs) and LXC (Linux Containers) for lightweight containers. It offers a powerful
-                web-based interface for managing virtualized environments, including clustering, backup solutions,
-                and software-defined storage.</p>
-            <p>Key features of Proxmox include:</p>
-            <ol>
-                <li>Virtualization: Supports both VMs and containers for different workload needs.</li>
-                <li>High Availability (HA): Allows clustering of multiple nodes for fail over capabilities.</li>
-                <li>Backup and Restore: Built-in support for backup and snapshot management.</li>
-                <li>Storage Flexibility: Integrates with local storage, ZFS, Ceph, and more.</li>
-                <li>Networking: Advanced networking features such as VLAN tagging, bridges, and SDN.</li>
-                <li>Web-Based Management: Full control through an intuitive GUI.</li>
-                <li>Open-Source Foundation: Community-driven with optional enterprise support.</li>
-            </ol>
-        </div>
-        <div id="bg-knowledge">
-            <h1>Background Knowledge</h1>
-            <p>Here is some technical background you should know:</p>
-            <ol>
-                <li>
-                    <h3>Basic Linux Knowledge</h3>
-                    <ul>
-                        <li>Familiarity with Linux command-line operations, as Proxmox is based on Debian.</li>
-                        <li>Common commands for managing files, users, and packages (<code>ls, cd, apt install
-                        </code>, etc).
-                        </li>
-                        <li>Understanding permissions (<code>chmod, chown</code>, and SSH Configurations)</li>
-                    </ul>
-                </li>
-                <li>
-                    <h3>Networking Basics</h3>
-                    <ul>
-                        <li>IP Addressing: Understand static vs. dynamic IPs, subnetting, and gateways.</li>
-                        <li>DHCP: Know how Proxmox might obtain or require a static IP during setup.</li>
-                        <li>DNS: Properly configure hostname and DNS for network functionality.</li>
-                        <li>Bridges and VLANs: Proxmox relies on bridges for VM networking. Understand how bridges
-                            emulate a switch to connect VMs to the physical network.
-                        </li>
-                        <li>Basic firewall rules and NAT if needed for external access.</li>
-                    </ul>
-                </li>
-                <li>
-                    <h3>Virtualization Concepts</h3>
-                    <ul>
-                        <li>Difference between virtual machines (VMs) and containers (CTs).</li>
-                        <li>Hypervisor basics (KVM in this case).</li>
-                        <li>Resource allocation: CPU cores, memory, storage, and how they affect performance.</li>
-                        <li>Nested virtualization: If you're testing Proxmox on another hypervisor, ensure nested
-                            virtualization is supported.
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <h3>Storage Formatting/RAID</h3>
-                    <ul>
-                        <li>File Systems: Know about ext4, ZFS, and LVM. ZFS is particularly important if you plan
-                            to use its snapshot and replication features.
-                        </li>
-                        <li>RAID: Understanding RAID levels (RAID 0, 1, 5, 10) if using multiple drives.</li>
-                        <li>Disk Partitioning: Basic understanding of partitions, swap space, and mounting.</li>
-                        <li>Network-Attached Storage (NAS): Concepts like NFS, iSCSI, and CIFS/SMB for
-                            shared storage.
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <h3>Backup & Recovery</h3>
-                    <ul>
-                        <li>Importance of backup strategies for VMs and configurations.</li>
-                        <li>Knowledge of snapshot-based backup vs. full backups.</li>
-                        <li>Restoring systems from Proxmox backups.</li>
-                    </ul>
-                </li>
-            </ol>
-        </div>
-        <div id="system-reqs">
-            <h1>System Requirements</h1>
-            <p>Before setting up Proxmox, it's important to have a solid understanding of the platform and its
-                requirements. Proxmox requires a 64-bit processor with virtualization support (Intel VT-x or AMD-V)
-                and at least 4 GB of RAM, though 16 GB or more is recommended for production environments. For storage,
-                using SSDs enhances performance, and configurations like ZFS require additional RAM (1 GB per 1 TB of
-                storage is suggested). Networking basics, such as IP addressing, VLANs, and bridges, are also essential,
-                as Proxmox uses Linux bridges to connect virtual machines to physical networks. When clustering nodes
-                for high availability, ensure time synchronization using NTP and low-latency network connections to
-                facilitate Corosync communication between nodes.
-                <br><br>
-                Storage flexibility is one of Proxmox's strengths. Local storage works well for small setups, but ZFS
-                is a better choice for features like snapshots and replication. Ceph is another option for distributed,
-                scalable storage in multi-node environments. For networking, VLAN tagging and SDN provide the
-                flexibility needed for complex setups, such as multi-tenant environments. Finally, Proxmox supports
-                multiple backup modes, including snapshot-based backups (ideal with ZFS) and integration with the
-                Proxmox Backup Server for efficient deduplication and compression.</p>
-        </div>
-        <div id="installation">
-            <h1>Installation</h1>
-            <h2>Initial Installation</h2>
-            <p>To install Proxmox, download the ISO from the
-                <a target="_blank" href="https://www.proxmox.com/en/">Proxmox website</a>, create a bootable USB drive
-                using a tool like Rufus or Balena Etcher, and boot your server from the USB. Follow the
-                guided installation steps, specifying the disk for installation, network settings, and the root
-                password.</p>
-
-            <h2>Creating Virtual Machines</h2>
-            <p>To create a virtual machine, navigate to Datacenter > Node > Create VM in the web interface.
-                Provide a name for the VM, select the ISO for the operating system, and configure CPU, memory,
-                and storage settings. Complete the wizard and start the VM.</p>
-
-            <h2>Creating Containers</h2>
-            <p>Creating a container involves navigating to Datacenter > Node > Create CT,
-                selecting a template (which can be downloaded via the interface), and configuring CPU,
-                memory, and network settings. Containers can be managed via the web interface or command line,
-                offering lightweight virtualization for specific workloads.</p>
-
-            <h2>Setting up High Availability (HA)</h2>
-            <p>High availability in Proxmox requires a cluster of nodes. Start by creating a cluster on the
-                primary node: <br><br><code class="code-block">pvecm create &ltcluster-name&gt</code></p>
-            <p>Then, add additional nodes to the cluster:
-                <br><br><code class="code-block">pvecm add &ltprimary-node-ip&gt</code> </p>
-            <p>Once the cluster is set up, enable HA for specific VMs or containers via the web interface.</p>
-
-            <h2>Configuring ZFS Storage</h2>
-            <p>ZFS can be set up during installation or added later. To create a ZFS pool, use the following command:
-            <br><br><code class="code-block">zpool create mypool /dev/sdX</code></p>
-            <p>Add the ZFS pool in the Proxmox GUI under Datacenter > Storage > Add ZFS.
-                Snapshots can be created using: <br><br><code class="code-block">zfs snapshot
-                    mypool/dataset@snapshot-name</code></p>
-
-            <h2>Networking</h2>
-            <p>Proxmox uses Linux bridges to connect VMs to external networks. You can configure these under
-                System > Network in the web interface. To add a VLAN, use the following command:
-                <br><br><code class="code-block">ip link add link eth0 name eth0.10 type vlan id 10</code></p>
-            <p>This allows for isolated network configurations and enhanced network management.</p>
-
-            <h2>Backup and Restore</h2>
-            <p>Backups can be scheduled under Datacenter > Backup. Select the desired backup mode
-                (snapshot, stop, or suspend) and configure the schedule. Restoring a VM is as simple as navigating
-                to the backup file and selecting Restore.</p>
-
-            <h2>Ceph Cluster Storage</h2>
-            <p>For distributed storage, Ceph can be installed on Proxmox nodes: <br><br><code class="code-block">
-                apt install ceph
-            </code></p>
-            <p>Create a Ceph cluster via the web interface or CLI and add Ceph storage pools to Proxmox for use by
-                VMs and containers.</p>
-
-            <h2>Monitoring and Logs</h2>
-            <p>Proxmox includes built-in monitoring tools for tracking CPU, memory, disk I/O, and network traffic.
-                Logs can be accessed for troubleshooting under Datacenter > Syslog in the GUI.</p>
-
-            <h2>Cluster and Node Management</h2>
-            <p>To add nodes to a cluster, run the following command on the secondary node: <br><br><code
-                    class="code-block">pvecm add &ltIP of master node&gt</code></p>
-            <p>Live VM migrations can be performed through the GUI by selecting the VM and clicking Migrate.</p>
-        </div>
-        <div id="tips">
-            <h1>Some Tips...</h1>
-            <p>To get the most out of Proxmox, set up a robust backup strategy using the Proxmox Backup Server or
-                third-party tools. Experiment in a lab environment to test configurations before deploying them in
-                production. Secure your Proxmox system with regular updates, strong passwords, and firewalls. Finally,
-                leverage the Proxmox forums and documentation for troubleshooting and learning. By following these steps
-                and guidelines, you'll be well-equipped to deploy and manage a Proxmox system effectively.</p>
-        </div>
-        <div id="resources">
-            <h1>Helpful Resources</h1>
-            <p>Here are some resources that are particularly useful for beginners:</p>
-            <ul>
-                <li><a href="https://www.reddit.com/r/Proxmox/">The Proxmox Subreddit</a></li>
-                <li><a href="https://pve.proxmox.com/pve-docs/">Official documentation</a></li>
-                <li><a href="https://www.youtube.com/watch?v=5j0Zb6x_hOk&list=PLT98CRl2KxKHnlbYhtABg6cF50bYa8Ulo">
-                    A full YouTube course</a></li>
-                <li><a href="https://support.us.ovhcloud.com/hc/en-us/articles/360010916620-How-to-
-                Create-a-VM-in-Proxmox-VE">Guide to create a VM</a></li>
-            </ul>
-        </div>
-    </div>
+    <nav id="navbar">
+        <header><h2 id="navbar-title">Proxmox Information</h2></header>
+        <ul id="navbar-list">
+            <li>
+                <button><a href="#Overview" target="_self" class="nav-link">Overview</a></button>
+            </li>
+            <li>
+                <button><a href="#Background_Knowledge" target="_self" class="nav-link">Background Knowledge</a></button>
+            </li>
+            <li>
+                <button><a href="#System_Requirements" target="_self" class="nav-link">System Requirements</a></button>
+            </li>
+            <li>
+                <button><a href="#Installation" target="_self" class="nav-link">Installation</a></button>
+            </li>
+            <li>
+                <button><a href="#Tips" target="_self" class="nav-link">Tips</a></button>
+            </li>
+            <li>
+                <button><a href="#Helpful_Resources" target="_self" class="nav-link">Helpful Resources</a></button>
+            </li>
+        </ul>
+    </nav>
 </main>
 </body>
 </html>
